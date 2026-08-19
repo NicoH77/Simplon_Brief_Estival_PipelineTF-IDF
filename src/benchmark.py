@@ -25,9 +25,9 @@ def run() -> pd.DataFrame:
         metrics["model"] = name
         rows.append(metrics)
         print(f"[benchmark] {name:16s} "
-              f"macro_f1={metrics['macro_f1']:.3f}  acc={metrics['accuracy']:.3f}")
+              f"macro_f1={metrics['f1_macro']:.3f}  acc={metrics['accuracy']:.3f}")
 
-    results = pd.DataFrame(rows).set_index("model").sort_values("macro_f1", ascending=False)
+    results = pd.DataFrame(rows).set_index("model").sort_values("f1_macro", ascending=False)
 
     os.makedirs("outputs", exist_ok=True)
     results.to_csv(config.RESULTS_PATH)
