@@ -7,12 +7,29 @@ garantit l'ajustement du vectoriseur sur le train uniquement.
 """
 from __future__ import annotations
 from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import LinearSVC
+from sklearn.naive_bayes import MultinomialNB
 
 from .features import make_vectorizer
 from . import config
 
 
 def build_candidates() -> dict[str, Pipeline]:
+    """
+    Construit les pipelines candidats à comparer.
+
+    Retour
+    ------
+    dict[str, Pipeline]
+        Dictionnaire de la forme :
+        {
+            "logreg": Pipeline(...),
+            "linear_svm": Pipeline(...),
+            "multinomial_nb": Pipeline(...)
+        }
+    """
+    
     """TODO G : renvoyer {nom: Pipeline(tfidf -> modèle)} pour >= 3 familles.
 
     Incluez le modèle de votre Module 1, puis au moins deux autres familles
@@ -20,4 +37,17 @@ def build_candidates() -> dict[str, Pipeline]:
     Chaque Pipeline : Pipeline([("tfidf", make_vectorizer()), ("clf", <modèle>)]).
     """
     # TODO G
-    raise NotImplementedError
+    return {
+        "logreg": Pipeline([
+            ("tfidf", make_vectorizer()),
+            ("clf", LogisticRegression(max_iter=1000)),
+        ]),
+        "linear_svm": Pipeline([
+            ("tfidf", make_vectorizer()),
+            ("clf", LinearSVC()),
+        ]),
+        "naive_bayes": Pipeline([
+            ("tfidf", make_vectorizer()),
+            ("clf", MultinomialNB()),
+        ]),
+    }    
