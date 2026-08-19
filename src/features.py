@@ -24,7 +24,22 @@ def make_split(df: pd.DataFrame):
     texte (config.TEXT_COL) comme X et config.LABEL_COL comme y.
     """
     # TODO E
-    raise NotImplementedError
+    # raise NotImplementedError
+
+    X = df[config.TEXT_COL].astype(str)
+    y = df[config.LABEL_COL]
+    
+    X_train, X_test, y_train, y_test = train_test_split(
+        X,
+        y,
+        test_size=config.TEST_SIZE,
+        random_state=config.RANDOM_SEED,
+        shuffle=True,
+        stratify=y,
+    )
+ 
+    return X_train, X_test, y_train, y_test
+    
 
 
 def make_vectorizer() -> TfidfVectorizer:
@@ -34,4 +49,9 @@ def make_vectorizer() -> TfidfVectorizer:
     .fit() ici : le Pipeline l'ajustera sur le train.
     """
     # TODO F
-    raise NotImplementedError
+    return TfidfVectorizer(
+        lowercase=True,
+        ngram_range=(1, 2),
+        min_df=2,
+        max_df=0.95,
+    )
