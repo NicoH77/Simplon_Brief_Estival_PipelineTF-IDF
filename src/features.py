@@ -9,10 +9,12 @@ la vectorisation TF-IDF. Deux gestes de conception à ne pas manquer :
     Module 4). Le Pipeline de models.py s'en charge si vous renvoyez ici un
     vectoriseur NON ajusté.
 """
+
 from __future__ import annotations
+
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.model_selection import train_test_split
 
 from . import config
 
@@ -28,7 +30,7 @@ def make_split(df: pd.DataFrame):
 
     X = df[config.TEXT_COL].astype(str)
     y = df[config.LABEL_COL]
-    
+
     X_train, X_test, y_train, y_test = train_test_split(
         X,
         y,
@@ -37,9 +39,8 @@ def make_split(df: pd.DataFrame):
         shuffle=True,
         stratify=y,
     )
- 
+
     return X_train, X_test, y_train, y_test
-    
 
 
 def make_vectorizer() -> TfidfVectorizer:

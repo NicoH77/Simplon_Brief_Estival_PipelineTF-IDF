@@ -6,11 +6,10 @@ MULTI-CLASSE faiblement déséquilibré. L'exactitude globale flatte le modèle
 sur les classes fréquentes. Choisissez des métriques qui pèsent chaque
 intention équitablement, et regardez le rappel PAR classe.
 """
+
 from __future__ import annotations
+
 import pandas as pd
-
-from typing import Any
-
 from sklearn.metrics import (
     accuracy_score,
     balanced_accuracy_score,
@@ -86,9 +85,9 @@ def evaluate(y_true, y_pred) -> dict:
     }
 
 
-
 def per_class_report(y_true, y_pred) -> pd.DataFrame:
     """Rapport par intention (fourni). Renvoie un DataFrame precision/recall/f1/support."""
     from sklearn.metrics import classification_report
+
     rep = classification_report(y_true, y_pred, output_dict=True, zero_division=0)
     return pd.DataFrame(rep).T

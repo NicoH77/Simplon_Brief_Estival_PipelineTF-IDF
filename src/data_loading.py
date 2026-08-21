@@ -4,8 +4,11 @@ data_loading.py — Chargement des données (FOURNI).
 Charge le CSV Banking77 local (data/banking77.csv, schéma [text, label]).
 Échoue explicitement si le fichier est absent.
 """
+
 from __future__ import annotations
+
 import os
+
 import pandas as pd
 
 _REAL_PATH = "data/banking77.csv"

@@ -10,7 +10,7 @@ RANDOM_SEED = 42
 
 # --- Schéma des données (colonnes de data/banking77.csv) --------------------
 # TODO A : la colonne contenant le message client (l'entrée du modèle)
-TEXT_COL = "text"   # TODO A
+TEXT_COL = "text"  # TODO A
 
 # TODO B : la colonne contenant l'intention à prédire (la cible)
 LABEL_COL = "category"  # TODO B

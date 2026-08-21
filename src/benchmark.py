@@ -4,11 +4,14 @@ charge -> découpe -> entraîne chaque candidat -> évalue -> écrit outputs/res
 
 Lancement :  python -m src.benchmark
 """
+
 from __future__ import annotations
+
 import os
+
 import pandas as pd
 
-from . import config, data_loading, features, models, evaluation
+from . import config, data_loading, evaluation, features, models
 
 
 def run() -> pd.DataFrame:
@@ -19,13 +22,15 @@ def run() -> pd.DataFrame:
 
     rows = []
     for name, pipe in candidates.items():
-        pipe.fit(X_train, y_train)          # TF-IDF ajusté sur le TRAIN seul
+        pipe.fit(X_train, y_train)  # TF-IDF ajusté sur le TRAIN seul
         y_pred = pipe.predict(X_test)
         metrics = evaluation.evaluate(y_test, y_pred)
         metrics["model"] = name
         rows.append(metrics)
-        print(f"[benchmark] {name:16s} "
-              f"macro_f1={metrics['f1_macro']:.3f}  acc={metrics['accuracy']:.3f}")
+        print(
+            f"[benchmark] {name:16s} "
+            f"macro_f1={metrics['f1_macro']:.3f}  acc={metrics['accuracy']:.3f}"
+        )
 
     results = pd.DataFrame(rows).set_index("model").sort_values("f1_macro", ascending=False)
 
