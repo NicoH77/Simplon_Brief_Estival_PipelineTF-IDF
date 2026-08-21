@@ -1,13 +1,14 @@
-# Restructuration TF-IDF — Squelette de projet (à compléter)
+# Restructuration TF-IDF
 
-Vous avez, au **Module 1 (Brief 1)**, construit un classifieur d'intentions
-Banking77 « tout-en-un » dans un notebook. Ici, vous **ne changez pas la
-logique** : vous la **restructurez** dans l'architecture de projet du
-**Module 4** (package `src/` modulaire piloté par un notebook guidé).
-
-Aucune nouvelle conception, aucun nouveau modèle : vous redistribuez votre
-code existant dans les bons modules, et vous nommez au passage les décisions
-qu'il contenait déjà.
+## Objectif
+L'objectif de ce projet est de construire un classifieur d'intentions à partir du jeu de données **Banking77**.
+Le notebook initial a été restructuré afin de séparer les responsabilités dans plusieurs modules Python :
+- chargement des données ;
+- extraction des caractéristiques ;
+- définition des modèles ;
+- évaluation ;
+- benchmark.
+Le notebook ne sert plus qu'à l'orchestration et à l'expérimentation.
 
 ## Installation
 ```bash
@@ -18,9 +19,9 @@ pip install -r requirements.txt
 Voir `data/README.md`. Placez le CSV Banking77 (`data/banking77.csv`, colonnes
 `text,label`) ; en son absence, le chargement lève une erreur explicite.
 
-## Comment travailler
+## Architecture
 Le notebook `notebooks/restructuration_intentions.ipynb` est le fil conducteur.
-Il appelle les fonctions de `src/`, que vous complétez dans cet ordre :
+Il appelle les fonctions de `src/`, complétées dans cet ordre :
 
 | Ordre | Fichier | TODO | Ce que vous y remettez |
 |---|---|---|---|
@@ -41,16 +42,52 @@ python -m src.benchmark      # écrit outputs/results.csv
 ## Arborescence
 ```
 .
-├── data/               banking77.csv (requis) + README
+├── data/
+│   ├── train.csv
+│   ├── test.csv
+│   └── banking77.csv
 ├── notebooks/
 │   └── restructuration_intentions.ipynb
+├── outputs/
+│   └── results.csv
 ├── src/
-│   ├── config.py       ← TODO A-B
-│   ├── data_loading.py  (fourni)
-│   ├── features.py     ← TODO E-F
-│   ├── models.py       ← TODO G
-│   ├── evaluation.py   ← TODO H
-│   └── benchmark.py     (fourni → outputs/results.csv)
-└── outputs/
+│   ├── benchmark.py
+│   ├── config.py
+│   ├── data_loading.py
+│   ├── evaluation.py
+│   ├── features.py
+│   └── models.py
+├── tests/
+│   └── test_smoke.py
+├── Makefile
+├── pyproject.toml
+├── requirements.txt
+└── README.md
 ```
+
+## Benchmark
+
+Les trois familles de modèles suivantes sont comparées :
+-Logistic Regression => Régression linéaire
+- Linear SVM => Machines à vecteurs de support
+- Multinomial Naive Bayes => Modèle probabiliste
+
+```bash
+python -m src.benchmark
+```
+
+## Contrôle qualité
+Le projet utilise :
+- Ruff pour le formatage ;
+- Ruff pour l'analyse statique ;
+- Pytest pour les tests automatisés.
+
+## Test de fumée
+Un test de fumée vérifie que le pipeline principal fonctionne toujours.
+Le test contrôle :
+- l'import du module src.benchmark ;
+- l'exécution de la fonction run() ;
+- la génération de outputs/results.csv.
+
+
 
