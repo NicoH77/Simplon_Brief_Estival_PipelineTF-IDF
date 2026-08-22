@@ -25,16 +25,13 @@ Il appelle les fonctions de `src/`, complétées dans cet ordre :
 
 | Ordre | Fichier | TODO | Ce que vous y remettez |
 |---|---|---|---|
-| 1 | `src/config.py`     | A-B | Indiquer la colonne texte et la colonne cible ; centraliser tous les réglages |
-| 2 | `src/features.py`   | E-F | Votre découpage **stratifié** + votre **TF-IDF** (ajusté sur le train) |
-| 3 | `src/models.py`     | G   | Votre modèle du Module 1 + ≥ 2 autres familles, en Pipelines |
-| 4 | `src/evaluation.py` | H   | Vos métriques, choisies pour le **multi-classe déséquilibré** |
-| 5 | `notebooks/…`       | —   | Exécuter, lire, conclure |
+| 1 | `src/config.py`     | A-B | Indique la colonne texte et la colonne cible ; centralise tous les réglages |
+| 2 | `src/features.py`   | E-F | Découpage **stratifié** + **TF-IDF** (ajusté sur le train) |
+| 3 | `src/models.py`     | G   | Modèle du Module 1 + ≥ 2 autres familles, en Pipelines |
+| 4 | `src/evaluation.py` | H   | Métriques, choisies pour le **multi-classe déséquilibré** |
+| 5 | `notebooks/…`       | —   | ordonnancement, observations, conclusions |
 
-Une fois les `src/` complétés :
-```bash
-python -m src.benchmark      # écrit outputs/results.csv
-```
+
 
 ## Fournis (ne pas modifier)
 `src/data_loading.py`, `src/benchmark.py`.
@@ -68,12 +65,14 @@ python -m src.benchmark      # écrit outputs/results.csv
 ## Benchmark
 
 Les trois familles de modèles suivantes sont comparées :
--Logistic Regression => Régression linéaire
+- Logistic Regression => Régression linéaire
 - Linear SVM => Machines à vecteurs de support
 - Multinomial Naive Bayes => Modèle probabiliste
 
+Une fois les `src/` complétés :
+
 ```bash
-python -m src.benchmark
+python -m src.benchmark      # écrit outputs/results.csv
 ```
 
 ## Contrôle qualité
